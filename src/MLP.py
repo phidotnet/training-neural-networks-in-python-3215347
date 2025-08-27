@@ -40,7 +40,21 @@ class MultiLayerPerceptron:
         self.network = [] # The list of lists of neurons
         self.values = []  # The list of lists of output values        
         
+        for i in range(len(layers)):
+            self.values.append([])
+            self.network.append([])
+            self.values[i] = [0.0 for j in range(self.layers[i])]
+            print(f"====================== Layer {i} ======================")
+            print(f"Initialized: {self.layers[i]} neurons.")
+            print(self.values[i])
+            if (i > 0):
+                for j in range(self.layers[i]):
+                    self.network[i].append(Perceptron(inputs=self.layers[i-1], bias=self.bias))
+                print(f"Added inputs: {self.layers[i-1]}")
 
-        
         self.network = np.array([np.array(x) for x in self.network],dtype=object)
         self.values = np.array([np.array(x) for x in self.values],dtype=object)
+
+mlp = MultiLayerPerceptron(layers=[2, 3, 1])
+print(mlp.network)
+print(mlp.values)
